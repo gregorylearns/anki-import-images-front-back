@@ -9,7 +9,8 @@ import os
 
 
 def get_filenames(folder):
-    file_list = os.listdir(folder)         # get list of files in folder
+    try:
+        file_list = os.listdir(folder)         # get list of files in folder
     except:
         file_list = []
     fnames = [f for f in file_list if os.path.isfile(os.path.join(folder, f)) and 
@@ -36,20 +37,27 @@ def main():
         print("too many arguments"); return
 
     directory = argv[1]
+    if directory[-1] != '/':
+        directory += '/'
+
     filenames = get_filenames(directory)
     anki_file = generate_anki_deck_import(filenames)
+    print(anki_file)
 
-    directory_levels = '/'.split(directory)
+    directory_levels = directory.split('/')
+    directory_levels = [x for x in directory_levels if len(x) > 0]
     save_file = f"{directory_levels.pop(-1)}.txt"
-
-    save_location = f"{'/'.join(directory_levels)}/"
-
+    print(save_file)
+    print(directory_levels)
+    save_location = f"/{'/'.join(directory_levels)}/"
+    print(save_location)
 
     with open(save_location+save_file,'w') as outputfile:
         outputfile.writelines(anki_file)
-    print(f"Anki import file {save_as} generated successfully\n Please move images into anki media folder")
+    print("*"*50)
+    print(f"Anki import file {save_file} generated successfully\n Please move images into anki media folder")
     return
 
 
-if __name__ == __main__:
+if __name__ == "__main__":
     main()
