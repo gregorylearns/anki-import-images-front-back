@@ -15,8 +15,9 @@ def generate_anki_deck_import(filelist):
 
 ###### GUI
 
+sg.theme("LightBlue2")
 layout = [
-    [sg.Text('ANKI GENERATOR 0.0.1 - by grego')], 
+    [sg.Text('ANKI GENERATOR 0.1.0 - by grego')], 
     [sg.Text("(1) Select Folder (Folder must contain even number of images):")],
     [sg.In(size=(70,1), enable_events=True ,key='-FOLDER-'), sg.FolderBrowse()],
     [sg.Text("(2) Review the output pairings:")],
