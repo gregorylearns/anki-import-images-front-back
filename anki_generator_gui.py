@@ -18,11 +18,11 @@ def generate_anki_deck_import(filelist):
 layout = [
     [sg.Text('ANKI GENERATOR 0.0.1 - by grego')], 
     [sg.Text("Select Folder")],
-    [sg.In(size=(30,1), enable_events=True ,key='-FOLDER-'), sg.FolderBrowse()],
+    [sg.In(size=(70,1), enable_events=True ,key='-FOLDER-'), sg.FolderBrowse()],
     [sg.Text("Input files")],
-    [sg.Listbox(values=[], enable_events=True, size=(40,10),key='-FILE LIST-')],
+    [sg.Listbox(values=[], enable_events=True, size=(80,10),key='-FILE LIST-')],
     [sg.Text("Output File:")],
-    [sg.In(size=(28,1), enable_events=True ,key='-OUTPUT-'), sg.FileSaveAs()],
+    [sg.In(size=(68,1), enable_events=True ,key='-OUTPUT-'), sg.FileSaveAs()],
     [sg.Text("Generate Anki CSV for Import:")],
     [sg.Button("Generate",key='-GENERATE-'), sg.Button("Open Anki Media Folder", key='-OPEN-MEDIA-FOLDER-')]
 ]
