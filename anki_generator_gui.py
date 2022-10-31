@@ -10,18 +10,20 @@ def generate_anki_deck_import(filelist):
         ankideck_generated.append(filea)
         i += 2
         
-    return ankideck_generated
+    return(ankideck_generated)
 
 
 ###### GUI
 
 layout = [
     [sg.Text('ANKI GENERATOR 0.0.1 - by grego')], 
-    [sg.Text("Folder") ,sg.In(size=(25,1), enable_events=True ,key='-FOLDER-'), sg.FolderBrowse()],
+    [sg.Text("Select Folder")],
+    [sg.In(size=(30,1), enable_events=True ,key='-FOLDER-'), sg.FolderBrowse()],
     [sg.Text("Input files")],
     [sg.Listbox(values=[], enable_events=True, size=(40,10),key='-FILE LIST-')],
     [sg.Text("Output File:")],
-    [sg.In(size=(25,1), enable_events=True ,key='-OUTPUT-'), sg.FileSaveAs()],
+    [sg.In(size=(28,1), enable_events=True ,key='-OUTPUT-'), sg.FileSaveAs()],
+    [sg.Text("Generate Anki CSV for Import:")],
     [sg.Button("Generate",key='-GENERATE-'), sg.Button("Open Anki Media Folder", key='-OPEN-MEDIA-FOLDER-')]
 ]
 
@@ -40,9 +42,11 @@ while True:
     if event == sg.WIN_CLOSED or event == 'Exit':
         break
     if event == '-OPEN-MEDIA-FOLDER-':
-        win_anki_dir = os.getenv('APPDATA')
-        path = os.path.realpath(win_anki_dir)
-        os.system(f"start {os.path.realpath(path)}")
+        sg.popup(f"Feature Not ready yet",
+                    keep_on_top=True)
+        # win_anki_dir = os.getenv('APPDATA')
+        # path = os.path.realpath(win_anki_dir)
+        # os.system(f"start {os.path.realpath(path)}")
 
     if event == '-FOLDER-':                         # Folder name was filled in, make a list of files in the folder
         folder = values['-FOLDER-']
@@ -54,6 +58,9 @@ while True:
             os.path.join(folder, f)) and f.lower().endswith((".png", ".jpg", "jpeg", ".tiff", ".bmp"))]
         fnames.sort()
         window['-FILE LIST-'].update(fnames)
+
+        # Default Directory
+        window['-OUTPUT-'].update(f"{folder}.csv")
    
     if event == '-OUTPUT-':
         save_as = values['-OUTPUT-']
