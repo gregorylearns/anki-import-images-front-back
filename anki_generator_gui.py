@@ -17,10 +17,10 @@ def generate_anki_deck_import(filelist):
 
 layout = [
     [sg.Text('ANKI GENERATOR 0.0.1 - by grego')], 
-    [sg.Text("Select Folder")],
+    [sg.Text("Select Folder: Folder must contain even images:")],
     [sg.In(size=(70,1), enable_events=True ,key='-FOLDER-'), sg.FolderBrowse()],
-    [sg.Text("Input files")],
-    [sg.Listbox(values=[], enable_events=True, size=(80,10),key='-FILE LIST-')],
+    [sg.Text("Output pairings:")],
+    [sg.Listbox(values=[], enable_events=True, horizontal_scroll=True, size=(80,10),key='-FILE LIST-')],
     [sg.Text("Output File:")],
     [sg.In(size=(68,1), enable_events=True ,key='-OUTPUT-'), sg.FileSaveAs()],
     [sg.Text("Generate Anki CSV for Import:")],
@@ -57,7 +57,9 @@ while True:
         fnames = [f for f in file_list if os.path.isfile(
             os.path.join(folder, f)) and f.lower().endswith((".png", ".jpg", "jpeg", ".tiff", ".bmp"))]
         fnames.sort()
-        window['-FILE LIST-'].update(fnames)
+        # window['-FILE LIST-'].update(fnames)
+        window['-FILE LIST-'].update(generate_anki_deck_import(fnames))
+
 
         # Default Directory
         window['-OUTPUT-'].update(f"{folder}.csv")
